@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marine Engineering Watch Part (I) - OEW Prep</title>
+    <link rel="icon" type="image/png" href="photo00022.png" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="main-header">
+        <div class="logo-area">
+          <img src="download.png" alt="Logo" class="site-logo" />
+        </div>
+        <div class="title-area">
+          <h1>Marine Engineering Watch Part (I)</h1>
+          <p>OEW Batch 48 - Exam Preparation</p>
+          <p>Function One</p>
+        </div>
+      </header>
+      <section>
+        <h2>Section I: Multiple Choice</h2>
+        <div id="mcq-container"></div>
+      </section>
+
+      <section>
+        <h2>Section II: Fill in the Blank</h2>
+        <div id="fill-container"></div>
+      </section>
+
+      <section>
+        <h2>Section III: Short Question</h2>
+        <div id="short-container"></div>
+      </section>
+
+      <div class="action-area">
+        <button class="submit-btn" onclick="calculateResult()">
+          ရမှတ်စစ်ဆေးမည် <i class="fas fa-anchor"></i>
+        </button>
+      </div>
+
+      <div id="result-sheet" style="display: none">
+        <h3>Result Summary</h3>
+        <p id="p1-res"></p>
+        <p id="p2-res"></p>
+        <p id="p3-res"></p>
+        <hr />
+        <h2 id="final-percent"></h2>
+        <h1 id="final-status"></h1>
+      </div>
+    </div>
+
+    <script>
+      // ၁။ MCQ Data ပြင်ဆင်ခြင်း (Options ကို Array ပြောင်းလိုက်တာက ပိုအဆင်ပြေပါတယ်)
+      const mcqData = [
+        {
+          q: "The tie bolts are designed to withstand the ______ stresses due to the firing forces of engine.",
+          options: ["cyclic", "thrust", "compressive", "All of the above"],
+          correct: 2, // Compressive (Index 2)
+        },
+        {
+          q: "Indicator diagram give efficiency of _____ .",
+          options: [
+            "combustion in the chamber",
+            "condition of the running gear",
+            "irregularities in fuel",
+            "All of the above",
+          ],
+          correct: 3, // All of the above (Index 3)
+        },
+        {
+          q: "Piston rings to_____.",
+          options: [
+            "Provide effective sealing and prevent crankcase pressure.",
+            "Help cylinder oil spread properly.",
+            "Assist to compress air fuel mixture.",
+            "All of the above",
+          ],
+          correct: 3,
+        },
+        {
+          q: "The primary function of a centrifugal pump volute is _____.",
+          options: [
+            "convert velocity to pressure.",
+            "developed a high velocity liquid.",
+            "Initiate flow",
+            "All of the above",
+          ],
+          correct: 0,
+        },
+        {
+          q: "Un-treated sewage can be discharged when the vessel is proceeding en-route at a speed of not less than 4 knot and _____. ",
+          options: [
+            "More than 3 nautical miles.",
+            "More than 6 nautical miles.",
+            "More than 12 nautical miles.",
+          ],
+          correct: 2,
+        },
+        {
+          q: "Biological sewage treatment main components are : ",
+          options: [
+            "Aeration chamber",
+            "Settling chamber",
+            "Chlorinating chamber",
+            "All of the above",
+          ],
+          correct: 3,
+        },
+        {
+          q: "Anti-polishing ring _____ .",
+          options: [
+            "Installed in the upper end of the cylinder",
+            "In order to remove deposits from the piston top land",
+            "Proper cylinder function",
+            "Above all.",
+          ],
+          correct: 3,
+        },
+        {
+          q: "Shaft power is an _____ .",
+          options: [
+            "Output from any reduction gear. Coupling or clutch which may be connected to the engine crankshaft",
+            "Power delivered to the propeller",
+            "Power required to drive the ship",
+            "Actual power developed by the propeller.",
+          ],
+          correct: 0,
+        },
+        {
+          q: "Thrust bearing function are to _____ .",
+          options: [
+            "Support the axial thrust of horizontal shaft",
+            "To prevent the thrust from drifting in the axial direction",
+            "To transmitted load applied on the shaft",
+            "Above all",
+          ],
+          correct: 3,
+        },
+        {
+          q: "In the evaporator _____ from the room and boils off into vapors resulting in temperature drop of that room.",
+          options: [
+            "The refrigerant takes up heat",
+            "The refrigerant turned into liquid and takes up the heat.",
+            "The refrigerant turned into hot gas take away the heat.",
+            "All of the above.",
+          ],
+          correct: 0,
+        },
+        {
+          q: "Un-evaporated water is discharged as _____ by combined air/brine ejector",
+          options: ["Distilate", "Vapor", "Brine", "Condensate"],
+          correct: 2,
+        },
+        {
+          q: "Volumetric efficiency is a _____ of air compressor’s capacity.",
+          options: ["Measure", "Horse power", "Swept Volume"],
+          correct: 2,
+        },
+        {
+          q: "To get the best purification efficiency is to _____.",
+          options: [
+            "Increase the flow rate and temperature.",
+            "Adjust the flow rate and control the correct temperature.",
+            "Throttle the discharge.",
+          ],
+          correct: 1,
+        },
+        {
+          q: "Filter separates the impurities on the basis of ____.",
+          options: ["Size.", "Pressure", "Viscosity.", "Temperature"],
+          correct: 0,
+        },
+        {
+          q: "Purpose of buffer spring _____.",
+          options: [
+            "To absorb the axial thrust of the arms.",
+            "To make the ram movement easy.",
+            "To prevent steering motor overload.",
+            "To absorb the vibration and shocks from the rudder.",
+          ],
+          correct: 3,
+        },
+        {
+          q: "Auxiliary engine start air system consist of_____.",
+          options: [
+            "Air receiver and start air control valve.",
+            "Air starting distributor.",
+            "Starting air valve.",
+            "Above all",
+          ],
+          correct: 3,
+        },
+        {
+          q: "In principle the impulse steam turbine consist of _____.",
+          options: [
+            "A casing with stationary steam nozzles and moving blades.",
+            "A casing with moving steam nozzles and a rotor with fixed blades",
+            "A casing with moving steam nozzles and a rotor with moving blades.",
+          ],
+          correct: 0,
+        },
+        {
+          q: "Gas turbines work on which of the following cycle?",
+          options: [
+            "Diesel cycle.",
+            "Brayton cycle.",
+            "Rankine cycle.",
+            "None of the mentioned.",
+          ],
+          correct: 1,
+        },
+        {
+          q: "In water tube boiler _____ while the exhaust gases remain in the shell side, passing over the tube surface.",
+          options: [
+            "Boiler water passes through the tubes.",
+            "Boiler water stays in the tube.",
+            "Boiler water passes through the bottom side.",
+          ],
+          correct: 0,
+        },
+        {
+          q: "Salinometer cock in a boiler is to _____.",
+          options: [
+            "Drain the boiler water.",
+            "Purge out air.",
+            "To take sampling for water analysis.",
+            "All of the above.",
+          ],
+          correct: 2,
+        },
+        // ... ကျန်တဲ့ မေးခွန်းတွေလည်း ဒီပုံစံအတိုင်း ထည့်လို့ရပါတယ် ...
+      ];
+
+      const fillData = [
+        {
+          q: "In an air condition system moisture is removed from air by _______.",
+          correct: "De-humidifier",
+        },
+        {
+          q: "Salt content in distilled water was measured by ____.",
+          correct: "salinometer",
+        },
+        {
+          q: "The purpose of surface blow-down is ______.",
+          correct: "to remove oil and scum from the surface of water",
+        },
+        {
+          q: "The engine structure from the bad plate to the entablature is hold in compression by the ______.",
+          correct: "tie bolt",
+        },
+        {
+          q: "To take up side and end loads engines are fitted with _____.",
+          correct: "side or end chocks",
+        },
+        {
+          q: "During the valve overlap _____.",
+          correct:
+            "the fresh air rushes in to the cylinder liner and expelled the foul gases till the exhaust valve close",
+        },
+        {
+          q: "Biological sewage treatment plant consist of 3 main components _____.",
+          correct:
+            "Aeration chamber, Settling chamber and Chlorinating chamber",
+        },
+        {
+          q: "The gravity disc sets the location of the _____.",
+          correct: "Oil and water interface line",
+        },
+        {
+          q: "In a centrifugal pump liquid enters the eye of the impeller and is made to flow radially outwards by _____.",
+          correct: "Centrifugal force between the impeller vanes",
+        },
+        {
+          q: "Refrigeration and air conditioning system works on the principle of _____.",
+          correct: "cooling by evaporation",
+        },
+        {
+          q: "Large bumping clearance retards the _____ on the suction stroke and thus less air is drawn inside for compression.",
+          correct: "the formation of vacuum",
+        },
+        {
+          q: "Falling mains frequently or voltage causes the _____ to operate the engine starting equipment.",
+          correct: "start-up relay",
+        },
+        {
+          q: "In a shell and tube type heat exchanger, tube stacks can be arranged as either single or double pass, this require that _____ the flow of liquid through the correct tubes.",
+          correct: "the end covers direct",
+        },
+        {
+          q: "Otto cycle is considered as the _____ for petrol or spark ignition engine. In this cycle heat addition is at constant volume.",
+          correct: "ideal cycle",
+        },
+        {
+          q: "Diesel cycle is considered as the ideal cycle for diesel engine or compression ignition engine. In this cycle heat addition is at _____.",
+          correct: "constant pressure",
+        },
+        {
+          q: "A dual cycle engine consists of four main processes _____.",
+          correct: "intake, compression, combustion and expansion",
+        },
+        {
+          q: "A gas turbine, also called a combustion turbine, is a type of continuous flow_____.",
+          correct: "internal combustion engine",
+        },
+        {
+          q: "Turbine is an engine that converts energy of fluid into _____.",
+          correct: "mechanical energy",
+        },
+        {
+          q: "On ships, the steam turbine can also be used as a _____.",
+          correct: "direct propulsion plant",
+        },
+        {
+          q: "Hunting gear is a _____ of steering gear which repositions the floating lever of hydraulic pump as the tiller moves to the desire position.",
+          correct: "feed back mechanism",
+        },
+      ];
+
+      const shortData = [
+        {
+          q: "What are the difference between a strainer and a filter?",
+          correct: "micron",
+        },
+        {
+          q: "State the purpose of un-loader valve & drain valve.",
+          correct: "starting torque",
+        },
+        {
+          q: "Three main boiler system namely?",
+          correct: "combustion",
+        },
+        {
+          q: "What are the types of steering gear used on ship?",
+          correct: "ram",
+        },
+      ];
+
+      // ၂။ Render Function (ပြင်ဆင်ပြီးသား)
+      function init() {
+        let h1 = "";
+        mcqData.forEach((d, i) => {
+          h1 += `<div class="card"><p><b>Q${i + 1}: ${d.q}</b></p>`;
+          // ဒီနေရာမှာ d.options က Array ဖြစ်နေဖို့ လိုပါတယ်
+          d.options.forEach((opt, idx) => {
+            h1 += `<label><input type="radio" name="mcq${i}" value="${idx}"> ${opt}</label>`;
+          });
+          h1 += `</div>`;
+        });
+        document.getElementById("mcq-container").innerHTML = h1;
+
+        let h2 = "";
+        fillData.forEach((d, i) => {
+          h2 += `<div class="card"><p><b>Q${i + 1}: ${d.q}</b></p>
+                    <input type="text" id="fill${i}" placeholder="Type answer here..."></div>`;
+        });
+        document.getElementById("fill-container").innerHTML = h2;
+
+        let h3 = "";
+        shortData.forEach((d, i) => {
+          h3 += `<div class="card"><p><b>Q${i + 1}: ${d.q}</b></p>
+                    <textarea id="short${i}" rows="3" placeholder="Explain in your own words..."></textarea></div>`;
+        });
+        document.getElementById("short-container").innerHTML = h3;
+      }
+
+      // ၃။ အမှတ်တွက်ခြင်း Logic
+      function calculateResult() {
+        let s1 = 0,
+          s2 = 0,
+          s3 = 0;
+
+        mcqData.forEach((d, i) => {
+          const sel = document.querySelector(`input[name="mcq${i}"]:checked`);
+          // Number အဖြစ် ပြောင်းစစ်ဖို့ လိုပါတယ်
+          if (sel && parseInt(sel.value) === d.correct) s1++;
+        });
+
+        fillData.forEach((d, i) => {
+          const inputField = document.getElementById(`fill${i}`);
+          const userAns = inputField.value.trim().toLowerCase();
+          inputField.classList.remove("correct-choice", "wrong-choice");
+          if (userAns !== "" && userAns === d.correct.toLowerCase()) {
+            inputField.classList.add("correct-choice");
+            s2++;
+          } else {
+            inputField.classList.add("wrong-choice");
+          }
+        });
+
+        shortData.forEach((d, i) => {
+          const inputField = document.getElementById(`short${i}`);
+          const userAns = inputField.value.trim().toLowerCase();
+          const key = d.correct.toLowerCase();
+          inputField.classList.remove("correct-choice", "wrong-choice");
+          if (userAns !== "" && userAns.includes(key)) {
+            inputField.classList.add("correct-choice");
+            s3++;
+          } else {
+            inputField.classList.add("wrong-choice");
+          }
+        });
+
+        document.getElementById("p1-res").innerText =
+          `MCQ: ${s1} / ${mcqData.length}`;
+        document.getElementById("p2-res").innerText =
+          `Fill-in: ${s2} / ${fillData.length}`;
+        document.getElementById("p3-res").innerText =
+          `Short Q: ${s3} / ${shortData.length}`;
+
+        const total = s1 + s2 + s3;
+        const max = mcqData.length + fillData.length + shortData.length;
+        const percent = Math.round((total / max) * 100);
+
+        document.getElementById("final-percent").innerText =
+          `Score: ${percent}%`;
+        document.getElementById("final-status").innerText =
+          percent >= 50 ? "⚓ PASSED ⚓" : "FAILED 💔";
+        document.getElementById("result-sheet").style.display = "block";
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+
+      init();
+    </script>
+  </body>
+</html>

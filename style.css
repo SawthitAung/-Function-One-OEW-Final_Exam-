@@ -1,0 +1,207 @@
+/* --- ၁။ အခြေခံ Settings များ --- */
+:root {
+  --primary-blue: #00d4ff;
+  --glass-bg: rgba(255, 255, 255, 0.08); /* မှန်ကြည်နောက်ခံ */
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --text-white: #ffffff;
+  --success-green: #00ff88;
+  --error-red: #ff4444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* ၂။ နောက်ခံပုံ ထည့်သွင်းခြင်း */
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+    url("IMG_2223.JPG");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+
+  color: var(--text-white);
+  font-family: "Segoe UI", Roboto, sans-serif;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+/* --- ၃။ Header အပိုင်း (Logo ဘေးမှာ Title ထားခြင်း) --- */
+.main-header {
+  display: flex;
+  flex-direction: row; /* ဘေးတိုက်စီမယ် */
+  align-items: center; /* အပေါ်အောက် အလယ်ညှိမယ် */
+  justify-content: center; /* အားလုံးကို အလယ်ပို့မယ် */
+  gap: 25px; /* Logo နဲ့ Title အကွာအဝေး */
+  margin-bottom: 50px;
+  flex-wrap: wrap; /* ဖုန်းမှာ နေရာမဆန့်ရင် အောက်ဆင်းပေးမယ် */
+}
+
+/* Logo Shape (အလန်းစား Rounded Diamond ပုံစံ) */
+/* --- Logo ဘောင်ကို တည့်တည့်ပြန်ထားခြင်း --- */
+.site-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0; /* ဘေးချင်းယှဉ်မှာမို့လို့ margin-bottom ဖယ်ထားပါ */
+
+  /* စောင်းမနေစေဘဲ တည့်တည့်ဖြစ်အောင် ၀ ဒီဂရီ ထားပါမယ် */
+  transform: rotate(0deg);
+
+  /* ထောင့်လေးတွေကို နည်းနည်းပဲ ဝိုင်းထားတဲ့ လေးထောင့်အဝိုင်းပုံစံ (Squircle) */
+  border-radius: 15px;
+
+  background: var(--glass-bg);
+  border: 1px solid var(--primary-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* အတွင်းက ပုံကိုလည်း စောင်းမနေအောင် ပြန်ပြင်ခြင်း */
+.site-logo img {
+  transform: rotate(0deg); /* 0 ပြောင်းလိုက်ရင် တည့်သွားပါပြီ */
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+/* Mouse တင်လိုက်ရင် အလန်းစားဖြစ်အောင် နည်းနည်းလေး ကြီးလာမယ် */
+.site-logo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+  border-color: #fff;
+}
+.title-area {
+  text-align: left;
+}
+
+.title-area h1 {
+  font-size: 2rem;
+  color: var(--primary-blue);
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  margin-bottom: 5px;
+}
+
+/* --- ၄။ Quiz Box (Question Cards) များ --- */
+section h2 {
+  color: var(--primary-blue);
+  margin: 30px 0 20px;
+  font-size: 1.4rem;
+  border-left: 4px solid var(--primary-blue);
+  padding-left: 15px;
+}
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px); /* မှန်ကြည် Effect */
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 25px;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* --- ၅။ Inputs & Choice Labels --- */
+label {
+  display: block;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px 18px;
+  margin: 10px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.2s;
+}
+
+label:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+input[type="radio"] {
+  margin-right: 12px;
+  accent-color: var(--primary-blue);
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 15px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  margin-top: 10px;
+}
+
+/* --- ၆။ Submit Button --- */
+.submit-btn {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 40px auto;
+  padding: 18px;
+  background: linear-gradient(135deg, #00d4ff, #0055ff);
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 85, 255, 0.4);
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 85, 255, 0.6);
+}
+
+/* --- ၇။ Result Sheet --- */
+#result-sheet {
+  background: rgba(11, 14, 20, 0.9);
+  border: 2px solid var(--primary-blue);
+  padding: 30px;
+  border-radius: 25px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* မှန်ရင် အစိမ်း၊ မှားရင် အနီ ပြမယ့်စတိုင်လ် */
+.correct-choice {
+  border: 2px solid var(--success-green) !important;
+}
+.wrong-choice {
+  border: 2px solid var(--error-red) !important;
+}
+
+/* --- ၈။ Responsive (ဖုန်းအတွက်) --- */
+@media (max-width: 600px) {
+  .main-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .title-area {
+    text-align: center;
+  }
+  .title-area h1 {
+    font-size: 1.5rem;
+  }
+}
