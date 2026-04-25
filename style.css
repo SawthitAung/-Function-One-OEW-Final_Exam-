@@ -1,7 +1,7 @@
 /* --- ၁။ အခြေခံ Settings များ --- */
 :root {
   --primary-blue: #00d4ff;
-  --glass-bg: rgba(255, 255, 255, 0.08); /* မှန်ကြည်နောက်ခံ */
+  --glass-bg: rgba(255, 255, 255, 0.08); 
   --glass-border: rgba(255, 255, 255, 0.15);
   --text-white: #ffffff;
   --success-green: #00ff88;
@@ -37,25 +37,24 @@ body {
 /* --- ၃။ Header အပိုင်း (Logo ဘေးမှာ Title ထားခြင်း) --- */
 .main-header {
   display: flex;
-  flex-direction: row; /* ဘေးတိုက်စီမယ် */
-  align-items: center; /* အပေါ်အောက် အလယ်ညှိမယ် */
-  justify-content: center; /* အားလုံးကို အလယ်ပို့မယ် */
-  gap: 25px; /* Logo နဲ့ Title အကွာအဝေး */
+  flex-direction: row; 
+  align-items: center;
+  justify-content: center; 
+  gap: 25px; 
   margin-bottom: 50px;
-  flex-wrap: wrap; /* ဖုန်းမှာ နေရာမဆန့်ရင် အောက်ဆင်းပေးမယ် */
+  flex-wrap: wrap;
 }
 
-/* Logo Shape (အလန်းစား Rounded Diamond ပုံစံ) */
-/* --- Logo ဘောင်ကို တည့်တည့်ပြန်ထားခြင်း --- */
+
 .site-logo {
   width: 80px;
   height: 80px;
-  margin-bottom: 0; /* ဘေးချင်းယှဉ်မှာမို့လို့ margin-bottom ဖယ်ထားပါ */
+  margin-bottom: 0;
 
-  /* စောင်းမနေစေဘဲ တည့်တည့်ဖြစ်အောင် ၀ ဒီဂရီ ထားပါမယ် */
+ 
   transform: rotate(0deg);
 
-  /* ထောင့်လေးတွေကို နည်းနည်းပဲ ဝိုင်းထားတဲ့ လေးထောင့်အဝိုင်းပုံစံ (Squircle) */
+ 
   border-radius: 15px;
 
   background: var(--glass-bg);
@@ -68,15 +67,15 @@ body {
   transition: all 0.3s ease;
 }
 
-/* အတွင်းက ပုံကိုလည်း စောင်းမနေအောင် ပြန်ပြင်ခြင်း */
+
 .site-logo img {
-  transform: rotate(0deg); /* 0 ပြောင်းလိုက်ရင် တည့်သွားပါပြီ */
+  transform: rotate(0deg); 
   width: 90%;
   height: 90%;
   object-fit: contain;
 }
 
-/* Mouse တင်လိုက်ရင် အလန်းစားဖြစ်အောင် နည်းနည်းလေး ကြီးလာမယ် */
+
 .site-logo:hover {
   transform: scale(1.1);
   box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
@@ -184,7 +183,7 @@ textarea {
   margin-top: 30px;
 }
 
-/* မှန်ရင် အစိမ်း၊ မှားရင် အနီ ပြမယ့်စတိုင်လ် */
+
 .correct-choice {
   border: 2px solid var(--success-green) !important;
 }
@@ -192,7 +191,7 @@ textarea {
   border: 2px solid var(--error-red) !important;
 }
 
-/* --- ၈။ Responsive (ဖုန်းအတွက်) --- */
+
 @media (max-width: 600px) {
   .main-header {
     flex-direction: column;
@@ -203,5 +202,47 @@ textarea {
   }
   .title-area h1 {
     font-size: 1.5rem;
+  }
+}
+/* --- Timer Floating Style --- */
+.timer-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 15px 25px;
+  border-radius: 50px;
+  border: 2px solid var(--primary-blue);
+  color: var(--primary-blue);
+  font-weight: 800;
+  font-size: 1.2rem;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timer-box i {
+  font-size: 1.4rem;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+
+@media (max-width: 600px) {
+  .timer-box {
+    top: auto;
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+    font-size: 1rem;
+    padding: 10px 20px;
   }
 }
