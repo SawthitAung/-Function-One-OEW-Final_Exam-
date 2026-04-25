@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="timer-box" id="timer-container">
+  <i class="fas fa-clock"></i> <span id="time-display">02:00:00</span>
+</div>
     <div class="container">
       <header class="main-header">
         <div class="logo-area">
@@ -342,12 +345,12 @@
         },
       ];
 
-      // ၂။ Render Function (ပြင်ဆင်ပြီးသား)
+      // ၂။ Render Function 
       function init() {
         let h1 = "";
         mcqData.forEach((d, i) => {
           h1 += `<div class="card"><p><b>Q${i + 1}: ${d.q}</b></p>`;
-          // ဒီနေရာမှာ d.options က Array ဖြစ်နေဖို့ လိုပါတယ်
+         
           d.options.forEach((opt, idx) => {
             h1 += `<label><input type="radio" name="mcq${i}" value="${idx}"> ${opt}</label>`;
           });
@@ -369,6 +372,41 @@
         });
         document.getElementById("short-container").innerHTML = h3;
       }
+      // --- Timer Logic ---
+let totalSeconds = 2 * 60 * 60; 
+function startTimer() {
+  const display = document.getElementById("time-display");
+  
+  const timerInterval = setInterval(() => {
+    let hours = Math.floor(totalSeconds / 3600);
+    let minutes = Math.floor((totalSeconds % 3600) / 60);
+    let seconds = totalSeconds % 60;
+
+   
+    display.innerText = 
+      `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    if (totalSeconds <= 0) {
+      clearInterval(timerInterval);
+      alert;
+      calculateResult();
+    } else {
+      totalSeconds--;
+    }
+
+    
+    if (totalSeconds < 300) {
+      document.getElementById("timer-container").style.color = "#ff4444";
+      document.getElementById("timer-container").style.borderColor = "#ff4444";
+    }
+  }, 1000);
+}
+
+// Window load ဖြစ်တာနဲ့ Timer စမယ်
+window.onload = function() {
+  init();
+  startTimer();
+};
 
       // ၃။ အမှတ်တွက်ခြင်း Logic
       function calculateResult() {
